@@ -326,30 +326,6 @@ Then reference them like
 
 ---
 
-# Installation
-
-## Clone Repository
-
-```bash
-git clone https://github.com/USERNAME/StudentManagementSystem.git
-```
-
-## Open Project
-
-Open
-
-```
-StudentMng.sln
-```
-
-using Visual Studio 2022.
-
-## Restore Packages
-
-```
-Update-Package -Reinstall
-```
-
 ## Configure Database
 
 1. Create SQL Server Database
