@@ -1,0 +1,31 @@
+﻿@model StudentMng.Models.Student
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <label>Name:</label>
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationSummary(true, "Incorrect information", new { @class = "text-danger" })
+    </div>
+    <div>
+        <label>Marks:</label>
+        @Html.TextBoxFor(m => m.Marks)
+        @Html.ValidationSummary(true, "Incorrect information", new { @class = "text-danger" })
+    </div>
+    <br />
+    <button class="btn btn-primary" type="submit">Update</button>
+    @Html.ValidationSummary(true, "Update failed", new { @class = "text-danger" })
+}
+<br />
+<p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</p>
+

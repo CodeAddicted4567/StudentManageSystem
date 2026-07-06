@@ -1,0 +1,27 @@
+﻿@model StudentMng.Models.Student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<h4>Are you sure to delete this entity?</h4>
+
+@using (Html.BeginForm("Delete", "Student", FormMethod.Post))
+{
+    <div>
+        <h5>
+            @Html.DisplayNameFor(m => m.Name) &nbsp;
+            <span class="text-danger">@Html.DisplayFor(m => m.Name)</span>
+        </h5>
+    </div>
+    <div class="input-group">
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </div>
+}
+<br />
+
+
+
+

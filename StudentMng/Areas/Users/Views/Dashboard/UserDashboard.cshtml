@@ -1,0 +1,106 @@
+﻿@model StudentMng.Models.StudentVM
+@{
+    ViewBag.Title = "UserDashboard";
+}
+
+<h2>UserDashboard</h2>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('h5').hide().slideDown(500).delay(2000).slideUp(500);
+
+            //search
+            $('#searchBtn').click(function (e) {
+                e.preventDefault();
+                searchStudents();
+            });
+
+            // SORT
+            $('#sortToggle').click(function (e) {
+
+                e.preventDefault();//prevent reloads when click on links '<a></a>'
+                sortStudents();
+            });
+        })
+    // SEARCH FUNCTION (AJAX)
+    function searchStudents() {
+
+        var searchValue =
+            $('#quickSearch').val();//gather value from input by Id
+
+        $.ajax({
+
+            url: '@Url.Action(
+                    "SearchStudents","Dashboard",new { area="Users" })',
+
+            type: 'GET',
+
+            data: {
+                searches: searchValue //'searches' property is actually *action's parameter*
+            },
+
+            success: function (result) {
+
+                $('#studentTableContainer')
+                    .html(result);
+            }
+        });
+    }
+
+        // SORT FUNCTION (AJAX)
+    function sortStudents() {
+
+        var currentSort =
+            $('#sortToggle').data('sort');//gather value from link by Id
+
+
+        var nextSort =
+            currentSort === "ASC"
+            ? "DESC"
+            : "ASC";
+
+        $('#sortToggle')
+            .data('sort', nextSort);
+
+        $.ajax({
+
+            url: '@Url.Action(
+                    "SortStudents","Dashboard",new { area = "Users"})',
+
+            type: 'GET',
+
+            data: {
+                sortOrder: nextSort
+            },
+
+            success: function (result) {
+
+                $('#studentTableContainer')
+                    .html(result);
+            }
+        });
+    }
+    </script>
+}
+@using (Html.BeginForm("Index", "Student", new { area = "" }, FormMethod.Get))
+{
+    @*name got parameter input which passes to VM prop at value attributes*@
+    <div>
+        <button class="btn btn-info" type="submit">Show All</button>
+    </div>
+}
+
+@*For toggle sort effect do this in DAL (sortOrder == "ASC") ? "ASC" : "DESC" int View (Model.SortByNames == "DESC") ? "ASC" : "DESC"*@
+
+<div class="input-group">
+    @Html.TextBoxFor(m => m.SearchName, new { @class = "form-control", id = "quickSearch" })
+    <button class=" btn btn-primary" id="searchBtn">Search</button>
+</div>
+<button id="sortToggle" data-sort="ASC" class="btn btn-primary">Sort Toggle</button>
+
+<div id="studentTableContainer">
+    @Html.Partial("_StudentData", Model.Students)
+</div>
+
+@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "btn btn-outline-danger" })

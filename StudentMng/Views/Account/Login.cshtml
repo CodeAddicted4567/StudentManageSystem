@@ -1,0 +1,35 @@
+﻿@model StudentMng.Areas.Users.Data.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.UserName)
+        </th>
+        <td>
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m=>m.UserName,"", new { @class = "text-danger" })
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Password)
+        </th>
+        <td>
+            @Html.TextBoxFor(m => m.Password, new { @type = "password" })
+            @Html.ValidationMessageFor(m => m.Password,"", new { @class = "text-danger" })
+
+        </td>
+    </tr>
+</table>
+<button type="submit" class="btn btn-outline-primary">Login</button>
+
+}
+<span>If you haven't account then @Html.ActionLink("Create", "Register", null, new { @class = "text-link" })</span><p style="color:red;">@TempData["Fail"]</p>

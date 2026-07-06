@@ -1,0 +1,24 @@
+﻿@model IEnumerable<StudentMng.Models.Student>
+<table class="table table-bordered">
+    <tbody style="text-align:center">
+        <tr style="font-size:20px">
+            <th>ID</th>
+            <th>NAME</th>
+            <th>MARKS</th>
+            <th class="col-auto">OPERATION</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Marks</td>
+
+                <td>
+                    @Html.ActionLink("Details", "StudentInformation",  new { id = item.Id, area = "Users" }, new { @class = "btn btn-light" })
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
