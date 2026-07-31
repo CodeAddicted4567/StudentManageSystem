@@ -11,7 +11,6 @@
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-red)
 ![ADO.NET](https://img.shields.io/badge/Data-ADO.NET-success)
 ![Unity](https://img.shields.io/badge/DI-Unity-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
@@ -81,7 +80,7 @@ The application contains separate Areas for Admin, Teacher, and Student modules.
 - Parameterized Queries
 - SQL Injection Prevention
 - Custom Authorization Filter
-- Session Validation
+- Session Validation of Users
 
 ---
 
@@ -94,6 +93,7 @@ The application contains separate Areas for Admin, Teacher, and Student modules.
 - .NET Framework
 - ADO.NET
 - Unity Dependency Injection
+- SQL Client provider
 
 ## Frontend
 
@@ -124,7 +124,7 @@ The application contains separate Areas for Admin, Teacher, and Student modules.
                             |
                             v
                  +---------------------+
-                 |     Service Layer   |
+                 |     Application     |
                  |---------------------|
                  | Business Logic      |
                  | Validation          |
@@ -133,7 +133,7 @@ The application contains separate Areas for Admin, Teacher, and Student modules.
                             |
                             v
                  +---------------------+
-                 |    Repository Layer |
+                 |   Insfrastructure   |
                  |---------------------|
                  | Data Access         |
                  | Helpers             |
@@ -141,6 +141,13 @@ The application contains separate Areas for Admin, Teacher, and Student modules.
                  +----------+----------+
                             |
                             v
+                 +---------------------+
+                 |        Domain       |
+                 |---------------------|
+                 | Entity Models       |
+                 +----------+----------+
+
+
                  +---------------------+
                  |    SQL Server DB    |
                  +---------------------+
@@ -151,13 +158,12 @@ The application contains separate Areas for Admin, Teacher, and Student modules.
 # Folder Structure
 
 ```
-StudentMng
+StudentMangementSystem
 │
 ├── Areas
 │   ├── Admin
 │   ├── Teacher
 │   └── Student
-│
 ├── Controllers
 ├── Models
 ├── Views
@@ -190,15 +196,15 @@ Validate User
 
 ↓
 
-Store Session
+Stored Session
 
 ↓
 
-Redirect According To Role
+Redirect According to the Role
 
 ↓
 
-Access Authorized Area
+Permit to access Authorized Areas
 
 ↓
 
@@ -224,8 +230,7 @@ Unity Container is used to inject dependencies throughout the application.
 Benefits:
 
 - Loose Coupling
-- Better Maintainability
-- Easier Testing
+- Better Separations
 - Scalable Architecture
 
 ---
@@ -235,7 +240,7 @@ Benefits:
 Search Features
 
 - Pattern Matching
-- Partial Search
+- Partial Result render
 - AJAX Requests
 
 Sorting
@@ -257,7 +262,7 @@ Controller
 
 ↓
 
-Service
+Service   ←   Contracts
 
 ↓
 
@@ -265,23 +270,23 @@ Repository
 
 ↓
 
-SQL Server
+SQL Server   →   Repository
 
-↓
+                 ↓
 
-Repository
+              Service
 
-↓
+                 ↓
 
-Service
+              Controller
 
-↓
+                 ↓
 
-Controller
+              AJAX Action
 
-↓
+                 ↓
+              Partial view
 
-View (AJAX)
 ```
 
 ---
@@ -349,6 +354,12 @@ Although this project is MVC-based, it exposes controller endpoints used by AJAX
 | GET   | `/Student/Search`       | AJAX Search     |
 | GET   | `/Student/Sort`         | AJAX Sort       |
 
+# Addtional Endpoints for API test
+| Method| Endpoint                   | Description     |
+|-------|----------------------------|-----------------|
+| GET   | `api/Student/Details?Name=`|Search by Names  |
+| GET   | `api/Student/Details/{id}` | Search by Id    |
+
 *(Modify these routes to match your actual controller actions.)*
 
 ---
@@ -356,10 +367,10 @@ Although this project is MVC-based, it exposes controller endpoints used by AJAX
 # Skills Demonstrated
 
 - ASP.NET MVC
-- Clean Architecture
+- Clean Architecture (Onion/Layered)
 - Repository Pattern
 - Dependency Injection
-- SOLID Principles
+- SOLID Principles (Interfaces)
 - ADO.NET
 - SQL Server
 - AJAX
@@ -375,16 +386,15 @@ Although this project is MVC-based, it exposes controller endpoints used by AJAX
 
 # Future Improvements
 
-- ASP.NET Core Migration
-- Entity Framework Core
+- ASP.NET Core Migrating
+- ORM implementation (EF Core)
 - ASP.NET Identity
 - JWT Authentication
 - Pagination
-- Dashboard Analytics
 - Unit Testing
 - Logging
+- Performance Optimize
 - Docker (CI/CD)
-- Azure Deployment
 
 ---
 
@@ -395,7 +405,3 @@ Although this project is MVC-based, it exposes controller endpoints used by AJAX
 ASP.NET Developer | C# | SQL Server | JavaScript | AJAX | jQuery
 
 ---
-
-# License
-
-This project is released under the MIT License.
