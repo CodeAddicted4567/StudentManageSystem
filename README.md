@@ -395,7 +395,3 @@ Although this project is MVC-based, it exposes controller endpoints used by AJAX
 ASP.NET Developer | C# | SQL Server | JavaScript | AJAX | jQuery
 
 ---
-
-# License
-
-This project is released under the MIT License.
